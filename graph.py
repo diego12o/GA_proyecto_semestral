@@ -2,7 +2,7 @@ import networkx as nx
 import courses_list
 import adjacency_matrix
 import algorithm
-import numpy as np
+import functions
 
 def main():
     # PARAMETER DEFINITION
@@ -31,61 +31,23 @@ def main():
     # APPLY GREEDY COLORING ALGORITHM
     algorithm.greedy_coloring_algorithm(graph_hor)
     algorithm.greedy_coloring_algorithm(graph_day)
-
-    # CALENDAR CREATION
-    days = {}
-    calendar = [
-        [ [], [], [], [] ],
-        [ [], [], [], [] ],
-        [ [], [], [], [] ],
-        [ [], [], [], [] ],
-        [ [], [], [], [] ]
-    ]
             
     # GET NODES COLOR FOR DAYS
+    dict_day = {}
     for v, data in graph_day.nodes(data=True):
-        if data['color'] not in days.keys():
-            days[data['color']] = []
-        days[data['color']].append(v)
+        if data['color'] not in dict_day.keys():
+            dict_day[data['color']] = []
+        dict_day[data['color']].append(v)
 
     # GET NODES COLOR FOR HOR
     dict_hor = {}
     for v, data in graph_hor.nodes(data=True):
         dict_hor[v] = data['color']
 
-    # EXAM SCHEDULING
-    wait_list = []
-    day = 0
-    for key in days.keys():
-        calendar.append("día 1")
-        time = 0
-        colors = []
-        for node in days[key]:
-            for time in range(4):
-                print(str(node) + " " + dict_hor[node])
-                if len(calendar[day][time])==0:
-                    calendar[day][time].append(node)
-                    break
-                elif dict_hor[node] == dict_hor[calendar[day][time][0]]:
-                    calendar[day][time].append(node)
-                    break
-                elif time == 3:
-                    wait_list.append(node)
-        day = day + 1
-
-    for node in wait_list:
-        for time in range(4):
-                print(str(node) + " " + dict_hor[node])
-                if len(calendar[day][time])==0:
-                    calendar[day][time].append(node)
-                    break
-                elif dict_hor[node] == dict_hor[calendar[day][time][0]]:
-                    calendar[day][time].append(node)
-                    break
-
-    if len(wait_list) > 0:
-        print("Sin solución")
-        return False
+    result = False
+    while(not result):
+        # EXAM SCHEDULING
+        calendar, result = functions.exam_scheduling(dict_day, dict_hor)
     
     for day in range(5):
         print("----------- DÍA " + str(day) + " -----------")
@@ -93,9 +55,6 @@ def main():
             print("-- HORARIO " + str(time) + " --")
             for node in calendar[day][time]:
                 print(str(node) + " " + dict_hor[node])
-
-            
-
 
 if __name__ == "__main__":
     main()
