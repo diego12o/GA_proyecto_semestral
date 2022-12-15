@@ -28,24 +28,24 @@ def main():
             if ad_matrix_day[i][j] == 1:
                 graph_day.add_edge(i, j)
 
-    # APPLY GREEDY COLORING ALGORITHM
-    algorithm.greedy_coloring_algorithm(graph_hor)
-    algorithm.greedy_coloring_algorithm(graph_day)
-            
-    # GET NODES COLOR FOR DAYS
-    dict_day = {}
-    for v, data in graph_day.nodes(data=True):
-        if data['color'] not in dict_day.keys():
-            dict_day[data['color']] = []
-        dict_day[data['color']].append(v)
-
-    # GET NODES COLOR FOR HOR
-    dict_hor = {}
-    for v, data in graph_hor.nodes(data=True):
-        dict_hor[v] = data['color']
-
     result = False
     while(not result):
+        # APPLY GREEDY COLORING ALGORITHM
+        algorithm.greedy_coloring_algorithm(graph_hor)
+        algorithm.greedy_coloring_algorithm(graph_day)
+                
+        # GET NODES COLOR FOR DAYS
+        dict_day = {}
+        for v, data in graph_day.nodes(data=True):
+            if data['color'] not in dict_day.keys():
+                dict_day[data['color']] = []
+            dict_day[data['color']].append(v)
+
+        # GET NODES COLOR FOR HOR
+        dict_hor = {}
+        for v, data in graph_hor.nodes(data=True):
+            dict_hor[v] = data['color']
+
         # EXAM SCHEDULING
         calendar, result = functions.exam_scheduling(dict_day, dict_hor)
     
