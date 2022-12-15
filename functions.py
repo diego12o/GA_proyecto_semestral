@@ -39,7 +39,7 @@ def exam_scheduling(dict_day, dict_hor):
     #                 break
 
     if len(wait_list) > 0:
-        print("Sin solución")
+        print("**************** Sin solución **************** ")
         return [], False
     
     return calendar, True
