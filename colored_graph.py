@@ -16,3 +16,13 @@ for i in range(len(ad_matrix_hor)-1):
         if ad_matrix_hor[i][j] == 1:
             graph_hor.add_edge(i, j)
 
+# GRAPH DAY CREATION
+graph_day = nx.Graph()
+graph_day.add_nodes_from(courses)
+
+for i in range(len(ad_matrix_day)-1):
+    for j in range(i+1, len(ad_matrix_day)):
+        if ad_matrix_day[i][j] == 1:
+            graph_day.add_edge(i, j)
+
+
