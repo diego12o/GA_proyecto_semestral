@@ -24,7 +24,6 @@ def exam_scheduling(dict_day, dict_hor):
                     calendar[day][time].append(node)
                     break
                 if time == 3:
-                    print(node)
                     wait_list.append(node)
         day = day + 1
 
@@ -39,7 +38,7 @@ def exam_scheduling(dict_day, dict_hor):
     #                 break
 
     if len(wait_list) > 0:
-        print("**************** Sin solución **************** ")
+        print("Buscando solución...")
         return [], False
     
     return calendar, True

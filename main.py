@@ -3,8 +3,11 @@ import courses_list
 import adjacency_matrix
 import algorithm
 import functions
+import time as t
 
 def main():
+
+    inicio = t.time()
 
     result = False
     while(not result):
@@ -48,13 +51,17 @@ def main():
 
         # EXAM SCHEDULING
         calendar, result = functions.exam_scheduling(dict_day, dict_hor)
-    
+
+    fin = t.time()
+
     for day in range(5):
         print("----------- DÍA " + str(day) + " -----------")
         for time in range(4):
             print("-- HORARIO " + str(time) + " --")
             for node in calendar[day][time]:
                 print(str(node) + " " + dict_hor[node])
+
+    print("TIEMPO: " + str(fin-inicio))
 
 if __name__ == "__main__":
     main()
